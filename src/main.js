@@ -82,7 +82,7 @@ ipcMain.handle('fetch-data', async (event, url) => {
 
 ipcMain.handle('find-account', async (event, data) =>{
   try {
-    const searchAcc = await axios.post('http://localhost:8917/findAccount', data);
+    const searchAcc = await axios.post('https://rbms-backend-g216.onrender.com/findAccount', data);
     if(searchAcc.data.isFound){
       event.sender.send('account-found', {
         found: true,

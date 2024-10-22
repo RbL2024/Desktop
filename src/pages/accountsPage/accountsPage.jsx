@@ -44,7 +44,7 @@ export default function UserPage() {
         setFetchedData([]);
         setLoading(true);
         try {
-            const url = 'http://localhost:8917/fetchAdminAccounts'
+            const url = 'https://rbms-backend-g216.onrender.com/fetchAdminAccounts'
             const res = await fetchAdminAcc.fetchData(url);
             setFetchedData(res);
             setLoading(false);
