@@ -57,7 +57,7 @@ export default function header() {
             <Box className="header-top" w='97vw' h='3vh' bg='#355E3B' />
             <Tooltip hasArrow label="Minimize" bg='gray.300' color='black'>
 
-                <Box pos='absolute' bg='#355E3B' h='3vh' w='35px' top='0' right='0'>
+                <Box pos='absolute' bg='#355E3B' h='3vh' w='40px' top='0' right='0'>
                     <Icon as={FaCircleMinus} color='Yellow' cursor='pointer' position='absolute' right='5px' mt='3px' onClick={minimizeApp} />
                 </Box>
             </Tooltip>

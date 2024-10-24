@@ -112,18 +112,19 @@ export default function UserPage() {
                         </Thead>
                         <Tbody>
                             {fetchedData.map((admin, index) => (
-                                <Tr 
+                                <Tr
                                     key={index} 
                                     onClick={() => handleRowClick(index)} // Set selected row index on click
                                     bg={selectedRowIndex === index ? 'blue.100' : '#E2E2D5'} // Change background if selected
                                     cursor="pointer" // Change cursor to pointer
-
                                 >
-                                    <Td>{index + 1}</Td>
-                                    <Td>{`${admin.a_last_name}, ${admin.a_first_name}  ${admin.a_middle_name}`}</Td>
-                                    <Td>{`${admin.a_email}`}</Td>
-                                    <Td>{`${admin.a_address}`}</Td>
-                                    <Td>{`${admin.a_contactnum}`}</Td>
+                                    <Td fontSize='sm'>{index + 1}</Td>
+                                    <Td fontSize='sm'>{`${admin.a_last_name}, ${admin.a_first_name}  ${admin.a_middle_name}`}<br/>
+                                        {`${admin.a_username}`}
+                                    </Td>
+                                    <Td fontSize='sm'>{`${admin.a_email}`}</Td>
+                                    <Td fontSize='sm'>{`${admin.a_address}`}</Td>
+                                    <Td fontSize='sm'>{`${admin.a_contactnum}`}</Td>
                                 </Tr>
                             ))}
                         </Tbody>

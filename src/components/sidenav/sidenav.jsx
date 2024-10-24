@@ -18,14 +18,22 @@ import {
     ModalCloseButton,
 } from '@chakra-ui/react'
 
+import {useShared} from '../../contextAPI.jsx';
+
 const closeMe = window.api;
-const Sidenav = ({ setActivePage }) => {
-    const [activeLink, setActiveLink] = useState('Dashboard');
+const Sidenav = () => {
+    // const [activeLink, setActiveLink] = useState('Dashboard');
+    const  {activeLink, setActiveLink} = useShared();
+
     const [isSAdmin, setisSAdmin] = useState('');
+
+    const { setActiveP } = useShared();
+    
     
     const handleLinkClick = (linkName) => {
         setActiveLink(linkName);
-        setActivePage(linkName);
+        // setActivePage(linkName);
+        setActiveP(linkName);
         // console.log(linkName);
     };
     const { isOpen, onOpen, onClose } = useDisclosure()
