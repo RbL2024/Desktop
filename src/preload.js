@@ -7,7 +7,8 @@ contextBridge.exposeInMainWorld('api', {
     close: () => ipcRenderer.send('close-window'),
     fetchData: (url) => ipcRenderer.invoke('fetch-data', url),
     findAccount: (data) => ipcRenderer.invoke('find-account', data),
-    uploadBike: (data) => ipcRenderer.invoke('upload-bike', data)
+    uploadBike: (data) => ipcRenderer.invoke('upload-bike', data),
+    fetchBikes: () =>  ipcRenderer.invoke('fetch-allbikes'),
 });
 
 ipcRenderer.on('account-found', (event, response) => {

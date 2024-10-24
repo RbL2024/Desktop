@@ -143,3 +143,12 @@ ipcMain.handle('upload-bike', async (event, data) => {
     throw error;
   }
 })
+
+ipcMain.handle('fetch-allbikes',  async (event, data) => {
+  try {
+    const response = await axios.get('http://localhost:8917/fetchAllBikes')
+    return response.data
+  } catch (error) {
+    console.error('Error fetching all bikes:', error);
+  }
+})

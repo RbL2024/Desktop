@@ -48,14 +48,14 @@ export default function UploadPage() {
         setBikeDescription('');
         setBikePrice('');
         setBikeType('');
-        setBikeNumber(makeid(4))
+        // setBikeNumber(makeid(4))
     }
 
     const handleReset = () => {
         inputReset();
     };
     const gotData = {
-        i_bike_number: bikeNumber,
+        i_bike_id: bikeNumber,
         i_bike_name: bikeName,
         i_bike_type: bikeType,
         i_bike_rent_price: bikePrice,
@@ -74,7 +74,6 @@ export default function UploadPage() {
                     duration: 2000,
                     position: 'bottom',
                     onCloseComplete: () => {
-                        inputReset();
                         setIsLoading(false);
                     }
                 })

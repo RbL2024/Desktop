@@ -75,8 +75,46 @@ export default function App() {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
-
     const toast = useToast();
+
+    const handleAccountFound = (event) => {
+        const res = event.detail;
+        if (res.found) {
+            console.log(res.found);
+
+            toast({
+                title: 'You are now logged in',
+                description: 'Welcome to your dashboard.',
+                status: 'success',
+                duration: 2000,
+                position: 'top',
+                onCloseComplete: () => {
+                    onClose();
+                    setLoading(false);
+                    localStorage.setItem('isLoggedIn', 'true');
+                    localStorage.setItem('sessionUName', res.uname);
+                    localStorage.setItem('isSAdmin', res.sAdmin);
+                    window.location.reload();
+                }
+            });
+        } else {
+            console.log(res.found);
+            toast({
+                title: 'Invalid Credentials',
+                description: 'Please check your username and password',
+                status: 'error',
+                duration: 2000,
+                position: 'top',
+                onCloseComplete: () => {
+                    setUsername('');
+                    setPassword('');
+                    setLoading(false);
+                }
+            });
+            return
+        }
+    };
+
     const handleBtnLogin = () => {
         setLoading(true);
         try {
@@ -85,43 +123,55 @@ export default function App() {
                 i_password: password
             }
             findAcc.findAccount(data);
-            window.addEventListener('account-found', (event) => {
-                const res = event.detail;
-                if (res.found) {
-                    console.log(res.found);
-                    localStorage.setItem('isLoggedIn', 'true');
-                    localStorage.setItem('sessionUName', res.uname);
-                    localStorage.setItem('isSAdmin', res.sAdmin);
-                    // setLoading(false)
-                    // window.location.reload();
-                    // onClose();
-                    toast({
-                        title: 'You are now logged in',
-                        description: 'Welcome to your  dashboard.',
-                        status: 'success',
-                        duration: 2000,
-                        position: 'top',
-                        onCloseComplete: () => {
-                            onClose();
-                            window.location.reload();
-                            setLoading(false)
-                        }
-                    })
-                } else {
-                    console.log(res.found);
-                    toast({
-                        title: 'Invalid Credentials',
-                        description: 'Please check your username and password',
-                        status: 'error',
-                        duration: 2000,
-                        position: 'top',
-                        onCloseComplete: () => {
-                            window.location.reload();
 
-                        }
-                    })
-                }
-            })
+
+            // Add event listener for account-found
+            window.addEventListener('account-found', handleAccountFound);
+
+            // Cleanup function to remove the event listener
+            return () => {
+                window.removeEventListener('account-found', handleAccountFound);
+            };
+            // window.addEventListener('account-found', (event) => {
+            //     const res = event.detail;
+            //     if (res.found) {
+            //         console.log(res.found);
+            //         localStorage.setItem('isLoggedIn', 'true');
+            //         localStorage.setItem('sessionUName', res.uname);
+            //         localStorage.setItem('isSAdmin', res.sAdmin);
+            //         // setLoading(false)
+            //         // window.location.reload();
+            //         // onClose();
+            //         toast({
+            //             title: 'You are now logged in',
+            //             description: 'Welcome to your  dashboard.',
+            //             status: 'success',
+            //             duration: 2000,
+            //             position: 'top',
+            //             onCloseComplete: () => {
+            //                 onClose();
+            //                 window.location.reload();
+            //                 setLoading(false)
+            //                 toast.closeAll();
+            //             }
+            //         })
+            //     } else {
+            //         console.log(res.found);
+            //         toast({
+            //             title: 'Invalid Credentials',
+            //             description: 'Please check your username and password',
+            //             status: 'error',
+            //             duration: 2000,
+            //             position: 'top',
+            //             onCloseComplete: () => {
+            //                 setUsername('')
+            //                 setPassword('');
+            //                 setLoading(false)
+            //                 toast.closeAll();
+            //             }
+            //         })
+            //     }
+            // })
         } catch (error) {
             console.log(error);
         }
@@ -131,34 +181,18 @@ export default function App() {
         closeMe.close();
     }
 
-    // const [activePage, setActivePage] = useState('Dashboard');
-
-
-    // const renderContent = () => {
-    //     switch (activePage) {
-    //         case 'Dashboard':
-    //             return <DashboardPage />;
-    //         case 'User':
-    //             return <UserPage />;
-    //         case 'History':
-    //             return <HistoryPage />;
-    //         case 'Gps Tracking':
-    //             return <GpstrackingPage />;
-    //         default:
-    //             return <DashboardPage />;
-    //     }
-    // };
 
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     useEffect(() => {
+
         if (localStorage.getItem('isLoggedIn') === 'true') {
             onClose();
         } else {
             onOpen();
         }
-    }, [onOpen, onClose]);
+    }, []);
 
     return (
         <SharedProvider>

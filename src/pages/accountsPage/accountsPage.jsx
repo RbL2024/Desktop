@@ -98,8 +98,8 @@ export default function UserPage() {
                     Apply
                 </Button>
             </Box>
-            <Box mt='10px' bg='#E2E2D5' w='795px' h='585px' shadow='lg' rounded='2xl'>
-                <TableContainer className='Acctable' maxH='580px' overflowY='auto' >
+            <Box mt='10px' bg='#E2E2D5' w='975px' h='585px' shadow='lg' rounded='2xl'>
+                <TableContainer className='Acctable' maxH='580px' overflowY='auto' rounded='2xl'>
                     <Table variant='simple' >
                         <Thead>
                             <Tr>
